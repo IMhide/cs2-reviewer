@@ -33,7 +33,7 @@ func DemoReader(demoPath string) {
 	//
 
 	var currentDuration time.Duration
-	var currentGameState libDem.GameState
+	//	var currentGameState libDem.GameState // THIS LINE CREATES A BUG
 
 	//
 	//  EVENTS HANDLERS
@@ -41,7 +41,7 @@ func DemoReader(demoPath string) {
 
 	demoParser.RegisterEventHandler(RoundStartEventHandler(&rounds, &currentDuration))
 	demoParser.RegisterEventHandler(RoundFinishedEventHandler(&rounds, &currentDuration))
-	demoParser.RegisterEventHandler(MatchStartEventHandler(&teams, &currentGameState))
+	//	demoParser.RegisterEventHandler(MatchStartEventHandler(&teams, &currentGameState)) // THIS LINE CREATES A BUG
 
 	//
 	// MAIN LOOP
