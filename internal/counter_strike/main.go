@@ -1,11 +1,14 @@
 package counter_strike
 
 import (
+	"fmt"
 	"log"
 	"os"
+	"time"
 
 	libDem "github.com/markus-wa/demoinfocs-golang/v4/pkg/demoinfocs"
 )
+
 func DemoReader(demoPath string) {
 	file, err := os.Open(demoPath)
 	if err != nil {
@@ -17,22 +20,51 @@ func DemoReader(demoPath string) {
 	demoParser := libDem.NewParser(file)
 	defer demoParser.Close()
 
-	demoParser.RegisterEventHandler(BombPlantingEventHandler())
-	demoParser.RegisterEventHandler(BombPlantCancelEventHandler())
-	demoParser.RegisterEventHandler(BombPlantedEventHandler())
-	demoParser.RegisterEventHandler(BombDefusingEventHandler())
-	demoParser.RegisterEventHandler(BombDefuseCancelEventHandler())
-	demoParser.RegisterEventHandler(BombDefusedEventHandler())
-	demoParser.RegisterEventHandler(BombPickedupEventHandler())
-	demoParser.RegisterEventHandler(BombDroppedEventHandler())
+	//
+	//  DATA STRUCTURES
+	//
 
-	demoParser.RegisterEventHandler(RoundStartEventHandler())
-	demoParser.RegisterEventHandler(RoundFinishedEventHandler())
+	var teams [2]Team
+	var rounds []Round
+	var demoInfo DemoInfo
 
-	demoParser.RegisterEventHandler(KillEventHandler())
+	//
+	//  VARIABLES
+	//
 
-	err = demoParser.ParseToEnd()
-	if err != nil {
-		log.Panic("failed to parse demo: ", err)
+	var currentDuration time.Duration
+	var currentGameState libDem.GameState
+
+	//
+	//  EVENTS HANDLERS
+	//
+
+	demoParser.RegisterEventHandler(RoundStartEventHandler(&rounds, &currentDuration))
+	demoParser.RegisterEventHandler(RoundFinishedEventHandler(&rounds, &currentDuration))
+	demoParser.RegisterEventHandler(MatchStartEventHandler(&teams, &currentGameState))
+
+	//
+	// MAIN LOOP
+	//
+
+	nextFrame, err := demoParser.ParseNextFrame()
+	for nextFrame {
+		currentDuration = demoParser.CurrentTime()
+
+		nextFrame, err = demoParser.ParseNextFrame()
+		if err != nil {
+			log.Panic("failed to parse demo: ", err)
+		}
 	}
+
+	demoHeader := demoParser.Header()
+	demoInfo.MapName = demoHeader.MapName
+	demoInfo.ServerName = demoHeader.ServerName
+	demoInfo.DurationInSec = demoParser.CurrentTime()
+	demoInfo.DurationInTick = demoParser.GameState().IngameTick()
+	demoInfo.DurationInFrame = demoParser.CurrentFrame()
+
+	fmt.Println(demoInfo)
+	fmt.Println(teams)
+	fmt.Println(rounds)
 }
