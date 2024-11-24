@@ -7,8 +7,9 @@ import (
 )
 
 type Team struct {
-	ID   int
-	Name string
+	ID      int
+	Name    string
+	Players []Player
 }
 
 type TeamState struct {
@@ -17,14 +18,28 @@ type TeamState struct {
 	financialStats FinancialStats
 }
 
+type Player struct {
+	SteamID string
+	GameID  int
+	Name    string
+}
+
 type Round struct {
 	roundNumber   int
 	StartTime     time.Duration
 	EndTime       time.Duration
 	WinningReason events.RoundEndReason
 	WinnerState   TeamState
+	LoserState    TeamState
+	KillFeed      []Kill
+}
 
-	LoserState TeamState
+type Kill struct {
+	VictimID   int
+	AttackerID int
+	WeaponName string
+	IsHeadshot bool
+	WallBang   bool
 }
 
 type DemoInfo struct {

@@ -1,10 +1,10 @@
 package counter_strike
 
 import (
-	"fmt"
 	"time"
 
 	libDem "github.com/markus-wa/demoinfocs-golang/v4/pkg/demoinfocs"
+	libCommon "github.com/markus-wa/demoinfocs-golang/v4/pkg/demoinfocs/common"
 	events "github.com/markus-wa/demoinfocs-golang/v4/pkg/demoinfocs/events"
 )
 
@@ -16,18 +16,12 @@ import (
 
 func RoundStartEventHandler(rounds *[]Round, currentDuration *time.Duration) func(e events.RoundStart) {
 	return func(e events.RoundStart) {
-		fmt.Println("--- Round Start ---")
-
 		*rounds = append(*rounds, Round{StartTime: *currentDuration, roundNumber: len(*rounds)})
 	}
 }
 
 func RoundFinishedEventHandler(rounds *[]Round, currentDuration *time.Duration) func(e events.RoundEnd) {
 	return func(e events.RoundEnd) {
-		fmt.Println("--- Round is over ---", humanRoundEndReason(e.Reason))
-		fmt.Println("Winner: ", e.WinnerState.ClanName(), " - Score :", e.WinnerState.Score())
-		fmt.Println("Loser: ", e.LoserState.ClanName(), " - Score :", e.LoserState.Score())
-
 		roundLen := len(*rounds)
 		(*rounds)[(roundLen - 1)].EndTime = *currentDuration
 		(*rounds)[(roundLen - 1)].WinningReason = e.Reason
@@ -58,13 +52,43 @@ func RoundFinishedEventHandler(rounds *[]Round, currentDuration *time.Duration) 
 
 func MatchStartEventHandler(teams *[2]Team, currentGameState *libDem.GameState) func(e events.MatchStart) {
 	return func(e events.MatchStart) {
-		fmt.Println("--- Match Start ---")
-
 		terrosistTeam := (*currentGameState).TeamTerrorists()
 		counterTerroristTeam := (*currentGameState).TeamCounterTerrorists()
 		(*teams)[0] = Team{ID: counterTerroristTeam.ID(), Name: counterTerroristTeam.ClanName()}
 		(*teams)[1] = Team{ID: terrosistTeam.ID(), Name: terrosistTeam.ClanName()}
+
+		for _, player := range counterTerroristTeam.Members() {
+			(*teams)[0].Players = append((*teams)[0].Players, Player{GameID: (*player).UserID, Name: (*player).Name})
+		}
+
+		for _, player := range terrosistTeam.Members() {
+			(*teams)[1].Players = append((*teams)[1].Players, Player{GameID: (*player).UserID, Name: (*player).Name})
+		}
 	}
+}
+
+func KillEventHandler(rounds *[]Round) func(e events.Kill) {
+	return func(e events.Kill) {
+		currentRound := len(*rounds)
+		if currentRound == 0 {
+			return
+		}
+
+		(*rounds)[currentRound-1].KillFeed = append((*rounds)[currentRound-1].KillFeed, Kill{
+			getPlayerId(e.Victim),
+			getPlayerId(e.Killer),
+			e.Weapon.String(),
+			e.IsHeadshot,
+			e.PenetratedObjects > 1,
+		})
+	}
+}
+
+func getPlayerId(player *libCommon.Player) int {
+	if player != nil {
+		return player.UserID
+	}
+	return 0
 }
 
 func humanRoundEndReason(reason events.RoundEndReason) string {

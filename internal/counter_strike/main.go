@@ -42,6 +42,7 @@ func DemoReader(demoPath string) {
 	demoParser.RegisterEventHandler(RoundStartEventHandler(&rounds, &currentDuration))
 	demoParser.RegisterEventHandler(RoundFinishedEventHandler(&rounds, &currentDuration))
 	demoParser.RegisterEventHandler(MatchStartEventHandler(&teams, &currentGameState))
+	demoParser.RegisterEventHandler(KillEventHandler(&rounds))
 
 	//
 	// MAIN LOOP
