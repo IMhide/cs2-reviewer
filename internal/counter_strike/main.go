@@ -33,7 +33,7 @@ func DemoReader(demoPath string) {
 	//
 
 	var currentDuration time.Duration
-	//	var currentGameState libDem.GameState // THIS LINE CREATES A BUG
+	var currentGameState libDem.GameState
 
 	//
 	//  EVENTS HANDLERS
@@ -41,7 +41,7 @@ func DemoReader(demoPath string) {
 
 	demoParser.RegisterEventHandler(RoundStartEventHandler(&rounds, &currentDuration))
 	demoParser.RegisterEventHandler(RoundFinishedEventHandler(&rounds, &currentDuration))
-	//	demoParser.RegisterEventHandler(MatchStartEventHandler(&teams, &currentGameState)) // THIS LINE CREATES A BUG
+	demoParser.RegisterEventHandler(MatchStartEventHandler(&teams, &currentGameState))
 
 	//
 	// MAIN LOOP
@@ -50,6 +50,7 @@ func DemoReader(demoPath string) {
 	nextFrame, err := demoParser.ParseNextFrame()
 	for nextFrame {
 		currentDuration = demoParser.CurrentTime()
+		currentGameState = demoParser.GameState()
 
 		nextFrame, err = demoParser.ParseNextFrame()
 		if err != nil {
