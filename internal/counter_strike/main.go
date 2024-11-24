@@ -1,6 +1,7 @@
 package counter_strike
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -66,7 +67,15 @@ func DemoReader(demoPath string) {
 	demoInfo.DurationInTick = demoParser.GameState().IngameTick()
 	demoInfo.DurationInFrame = demoParser.CurrentFrame()
 
-	fmt.Println(demoInfo)
-	fmt.Println(teams)
-	fmt.Println(rounds)
+	printJson(demoInfo)
+	printJson(teams)
+	printJson(rounds)
+}
+
+func printJson(data interface{}) {
+	json, err := json.MarshalIndent(data, "", "  ")
+	if err != nil {
+		log.Panic("failed to marshal json: ", err)
+	}
+	fmt.Println(string(json))
 }
