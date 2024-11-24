@@ -30,6 +30,29 @@ func RoundFinishedEventHandler(rounds *[]Round, currentDuration *time.Duration) 
 
 		roundLen := len(*rounds)
 		(*rounds)[(roundLen - 1)].EndTime = *currentDuration
+		(*rounds)[(roundLen - 1)].WinningReason = e.Reason
+		(*rounds)[(roundLen - 1)].WinnerState = TeamState{
+			e.WinnerState.ID(),
+			e.WinnerState.Score(),
+			FinancialStats{
+				e.WinnerState.ID(),
+				e.WinnerState.RoundStartEquipmentValue(),
+				e.WinnerState.FreezeTimeEndEquipmentValue(),
+				e.WinnerState.CurrentEquipmentValue(),
+				e.WinnerState.MoneySpentThisRound(),
+			},
+		}
+		(*rounds)[(roundLen - 1)].LoserState = TeamState{
+			e.LoserState.ID(),
+			e.LoserState.Score(),
+			FinancialStats{
+				e.LoserState.ID(),
+				e.LoserState.RoundStartEquipmentValue(),
+				e.LoserState.FreezeTimeEndEquipmentValue(),
+				e.LoserState.CurrentEquipmentValue(),
+				e.LoserState.MoneySpentThisRound(),
+			},
+		}
 	}
 }
 
