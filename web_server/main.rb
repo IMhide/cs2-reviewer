@@ -18,4 +18,7 @@ loader.setup
 #
 # v  Write your main loop downhere v
 #
-Mod.foo
+
+get '/' do
+  'Hello world!'
+end
