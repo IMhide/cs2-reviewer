@@ -35,11 +35,12 @@ type Round struct {
 }
 
 type Kill struct {
-	VictimID   int    `json:"victimID"`
-	AttackerID int    `json:"attackerID"`
-	WeaponName string `json:"weaponName"`
-	IsHeadshot bool   `json:"isHeadshot"`
-	WallBang   bool   `json:"wallBang"`
+	HappenedAt time.Duration `json:"happenedAt"`
+	VictimID   int           `json:"victimID"`
+	AttackerID int           `json:"attackerID"`
+	WeaponName string        `json:"weaponName"`
+	IsHeadshot bool          `json:"isHeadshot"`
+	WallBang   bool          `json:"wallBang"`
 }
 
 type DemoInfo struct {

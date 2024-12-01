@@ -67,7 +67,7 @@ func MatchStartEventHandler(teams *[2]Team, currentGameState *libDem.GameState) 
 	}
 }
 
-func KillEventHandler(rounds *[]Round) func(e events.Kill) {
+func KillEventHandler(rounds *[]Round, currentDuration *time.Duration) func(e events.Kill) {
 	return func(e events.Kill) {
 		currentRound := len(*rounds)
 		if currentRound == 0 {
@@ -75,6 +75,7 @@ func KillEventHandler(rounds *[]Round) func(e events.Kill) {
 		}
 
 		(*rounds)[currentRound-1].KillFeed = append((*rounds)[currentRound-1].KillFeed, Kill{
+			*currentDuration,
 			getPlayerId(e.Victim),
 			getPlayerId(e.Killer),
 			e.Weapon.String(),
