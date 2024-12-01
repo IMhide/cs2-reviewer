@@ -19,6 +19,14 @@ loader.setup
 # v  Write your main loop downhere v
 #
 
+require 'open3'
+
 get '/' do
-  'Hello world!'
+  haml :index, format: :html5
+end
+
+post '/upload' do
+  tempfile = params[:file][:tempfile]
+  stdout, _stderr, _status = Open3.capture3('../out/bin/cs2-reviewer', tempfile.path)
+  stdout
 end
