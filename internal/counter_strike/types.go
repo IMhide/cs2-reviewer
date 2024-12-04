@@ -35,12 +35,17 @@ type Round struct {
 }
 
 type Kill struct {
-	HappenedAt time.Duration `json:"happenedAt"`
-	VictimID   int           `json:"victimID"`
-	AttackerID int           `json:"attackerID"`
-	WeaponName string        `json:"weaponName"`
-	IsHeadshot bool          `json:"isHeadshot"`
-	WallBang   bool          `json:"wallBang"`
+	HappenedAt      time.Duration `json:"happenedAt"`
+	VictimID        int           `json:"victimID"`
+	AttackerID      int           `json:"attackerID"`
+	AssiterID       int           `json:"assisterID"`
+	WeaponName      string        `json:"weaponName"`
+	WallBang        bool          `json:"wallBang"`
+	IsHeadshot      bool          `json:"isHeadshot"`
+	VictimFlashed   bool          `json:"enemyFlashed"`
+	AttackerFlashed bool          `json:"attackerFlashed"`
+	NoScope         bool          `json:"noScope"`
+	ThroughSmoke    bool          `json:"throughSmoke"`
 }
 
 type DemoInfo struct {
@@ -57,4 +62,10 @@ type FinancialStats struct {
 	FreezeTimeEco int `json:"freezeTimeEco"`
 	EndRoundEco   int `json:"endRoundEco"`
 	SpentMoney    int `json:"spentMoney"`
+}
+
+type Match struct {
+	DemoInfo DemoInfo `json:"demoInfo"`
+	Teams    [2]Team  `json:"teams"`
+	Rounds   []Round  `json:"rounds"`
 }

@@ -10,3 +10,6 @@ gem 'sinatra'
 gem 'rackup'
 gem 'puma'
 gem 'haml'
+gem 'oj'
+# gem 'activesupport'
+gem 'rerun', require: false

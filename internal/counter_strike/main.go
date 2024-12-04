@@ -67,9 +67,12 @@ func DemoReader(demoPath string) {
 	demoInfo.DurationInTick = demoParser.GameState().IngameTick()
 	demoInfo.DurationInFrame = demoParser.CurrentFrame()
 
-	printJson(demoInfo)
-	printJson(teams)
-	printJson(rounds)
+	match := Match{
+		demoInfo,
+		teams,
+		rounds,
+	}
+	printJson(match)
 }
 
 func printJson(data interface{}) {

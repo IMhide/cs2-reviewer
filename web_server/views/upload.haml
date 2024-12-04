@@ -1,0 +1,29 @@
+%div.row
+  %div.col
+    %h2 Demo Information
+%div.row
+  %div.col
+    %div.card
+      %div.card-body
+        %pre
+          = @demoInfo.inspect
+
+%div.row
+  %div.col
+    %div.card
+      %div.card-body
+        %pre
+          = @teams[0].inspect
+  %div.col
+    %div.card
+      %div.card-body
+        %pre
+          = @teams[1].inspect
+
+- @rounds.each do |round|
+  %div.row
+    %div.col
+      %div.card
+        %div.card-body
+          %pre
+            = round.inspect

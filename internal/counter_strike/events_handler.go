@@ -78,9 +78,14 @@ func KillEventHandler(rounds *[]Round, currentDuration *time.Duration) func(e ev
 			*currentDuration,
 			getPlayerId(e.Victim),
 			getPlayerId(e.Killer),
+			getPlayerId(e.Assister),
 			e.Weapon.String(),
-			e.IsHeadshot,
 			e.PenetratedObjects > 1,
+			e.IsHeadshot,
+			e.AssistedFlash,
+			e.AttackerBlind,
+			e.NoScope,
+			e.ThroughSmoke,
 		})
 	}
 }
