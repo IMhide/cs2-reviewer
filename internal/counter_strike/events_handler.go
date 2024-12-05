@@ -76,18 +76,32 @@ func KillEventHandler(rounds *[]Round, currentDuration *time.Duration) func(e ev
 
 		(*rounds)[currentRound-1].KillFeed = append((*rounds)[currentRound-1].KillFeed, Kill{
 			*currentDuration,
-			getPlayerId(e.Victim),
-			getPlayerId(e.Killer),
-			getPlayerId(e.Assister),
+			getPlayerState(e.Victim),
+			getPlayerState(e.Killer),
+			getPlayerState(e.Assister),
 			e.Weapon.String(),
 			e.PenetratedObjects > 1,
 			e.IsHeadshot,
-			e.AssistedFlash,
-			e.AttackerBlind,
 			e.NoScope,
 			e.ThroughSmoke,
 		})
 	}
+}
+
+func getPlayerState(player *libCommon.Player) PlayerState {
+	var playerState PlayerState
+
+	if player != nil {
+		playerState = PlayerState{
+			player.UserID,
+			player.Name,
+			player.FlashDuration > 0,
+			player.LastAlivePosition.X,
+			player.LastAlivePosition.Y,
+			player.LastAlivePosition.Z,
+		}
+	}
+	return playerState
 }
 
 func getPlayerId(player *libCommon.Player) int {
@@ -95,6 +109,13 @@ func getPlayerId(player *libCommon.Player) int {
 		return player.UserID
 	}
 	return 0
+}
+
+func getPlayerName(player *libCommon.Player) string {
+	if player != nil {
+		return player.Name
+	}
+	return ""
 }
 
 func humanRoundEndReason(reason events.RoundEndReason) string {

@@ -35,17 +35,24 @@ type Round struct {
 }
 
 type Kill struct {
-	HappenedAt      time.Duration `json:"happenedAt"`
-	VictimID        int           `json:"victimID"`
-	AttackerID      int           `json:"attackerID"`
-	AssiterID       int           `json:"assisterID"`
-	WeaponName      string        `json:"weaponName"`
-	WallBang        bool          `json:"wallBang"`
-	IsHeadshot      bool          `json:"isHeadshot"`
-	VictimFlashed   bool          `json:"enemyFlashed"`
-	AttackerFlashed bool          `json:"attackerFlashed"`
-	NoScope         bool          `json:"noScope"`
-	ThroughSmoke    bool          `json:"throughSmoke"`
+	HappenedAt   time.Duration `json:"happenedAt"`
+	Victim       PlayerState   `json:"victim"`
+	Attacker     PlayerState   `json:"attacker"`
+	Assiter      PlayerState   `json:"assister"`
+	WeaponName   string        `json:"weaponName"`
+	WallBang     bool          `json:"wallBang"`
+	IsHeadshot   bool          `json:"isHeadshot"`
+	NoScope      bool          `json:"noScope"`
+	ThroughSmoke bool          `json:"throughSmoke"`
+}
+
+type PlayerState struct {
+	PlayerID   int     `json:"attackerID"`
+	PlayerName string  `json:"attackerName"`
+	Flashed    bool    `json:"flashed"`
+	PositionX  float64 `json:"positionX"`
+	PositionY  float64 `json:"positionY"`
+	PositionZ  float64 `json:"positionZ"`
 }
 
 type DemoInfo struct {
