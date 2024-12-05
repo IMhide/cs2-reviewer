@@ -24,14 +24,16 @@ require 'open3'
 DemoInfo = Struct.new(:mapName, :serverName, :durationInSec, :durationInTick, :durationInFrame)
 Team = Struct.new(:id, :name, :players)
 Player = Struct.new(:steamID, :gameID, :name)
+Round = Struct.new(:roundNumber, :startTime, :endTime, :winningReason, :winnerId, :loserId, :killFeed)
 
 get '/' do
   haml :index, format: :html5
 end
 
 post '/upload' do
-  tempfile = params[:file][:tempfile]
-  stdout, _stderr, _status = Open3.capture3('../out/bin/cs2-reviewer', tempfile.path)
+  params[:file][:tempfile]
+  # stdout, _stderr, _status = Open3.capture3('../out/bin/cs2-reviewer', tempfile.path)
+  stdout = File.read('tmp/test.json')
   json = Oj.load(stdout)
 
   @demoInfo = DemoInfo.new(**json['demoInfo'])
@@ -46,7 +48,10 @@ post '/upload' do
     Player.new(**player)
   end
 
-  @rounds = json['rounds']
+  @rounds = json['rounds'].map do |round|
+    Round.new(round['roundNumber'], round['startTime'], round['endTime'], round['winningReason'],
+      round['winnerState']['id'], round['loserState']['id'], round['killFeed'])
+  end
 
   haml :upload, format: :html5
 end
