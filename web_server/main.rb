@@ -31,9 +31,9 @@ get '/' do
 end
 
 post '/upload' do
-  tempfile = params[:file][:tempfile]
-  stdout, _stderr, _status = Open3.capture3('../out/bin/cs2-reviewer', tempfile.path)
-  # stdout = File.read('tmp/test.json')
+  params[:file][:tempfile]
+  # stdout, _stderr, _status = Open3.capture3('../out/bin/cs2-reviewer', tempfile.path)
+  stdout = File.read('tmp/test2.json')
   json = Oj.load(stdout)
 
   @demoInfo = DemoInfo.new(**json['demoInfo'])

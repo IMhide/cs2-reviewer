@@ -4,6 +4,6 @@
     %link{rel: 'stylesheet', href: '/css/bootstrap.min.css'}
     %script{src: '/js/bootstrap.bundle.min.js'}
   %body
-    %h1 CS2-Reviewer
-    %div.container
-      != yield
+    %div.container-fluid.vh-100.overflow-hidden.p-5
+      %div.row.h-100.overflow-hidden.border
+        != yield

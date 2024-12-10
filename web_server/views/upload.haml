@@ -1,56 +1,55 @@
-%div.row
-  %div.col
-    %h2 Demo Information
-%div.row
-  %div.col
-    %div.card
-      %div.card-header
-        = "#{@demoInfo.mapName} - #{@demoInfo.serverName}"
-      %div.card-body
-        %p= "Duration in Seconds: #{@demoInfo.durationInSec}"
-        %p= "Duration in Ticks: #{@demoInfo.durationInTick}"
-        %p= "Duration in Frames: #{@demoInfo.durationInFrame}"
-
-%div.row
-  %div.col
-    %div.card
-      %div.card-header
-        = @teams[0].name
-      %div.card-body
-        %p
-          %i= "id: #{@teams[0].id}"
-        %ul
-          - @teams[0].players.each do |player|
-            %li= player.name
-  %div.col
-    %div.card
-      %div.card-header
-        = @teams[1].name
-      %div.card-body
-        %p
-          %i= "id: #{@teams[1].id}"
-        %ul
-          - @teams[1].players.each do |player|
-            %li= player.name
-
-
-- @rounds.each do |round|
-  %div.row
-    %div.col
-      %div.card
-        %div.card-header
-          = "Round #{round.roundNumber}"
-        %div.card-body
-          %div.row
-            %div.col
-              %p= "Winner: #{round.winnerId}"
-              %p= "Loser: #{round.loserId}"
-              %p= "Reason: #{round.winningReason}"
-              %p= "Start Time: #{round.startTime}"
-              %p= "End Time: #{round.endTime}"
-            %div.col
-              %h5 Kill Feed
-              %ul
-                - round.killFeed.each do |kill|
-                  %li
-                    %pre= kill.inspect
+%div.row.h-100
+  %div.col-8.h-100.text-center
+    %img.h-100{src: "maps/#{@demoInfo.mapName}.png"}
+  %div.col-4
+    %div.row
+      %div.col
+        %h2="#{@demoInfo.mapName} - #{@demoInfo.serverName}"
+    %div.row
+      %div.col
+        %div.card
+          %div.card-body
+            %p= "Duration in Seconds: #{@demoInfo.durationInSec}, Ticks: #{@demoInfo.durationInTick}, Frames: #{@demoInfo.durationInFrame}"
+    %div.row
+      %div.col
+        %div.card
+          %div.card-header
+            = @teams[0].name
+          %div.card-body
+            %p
+              %i= "id: #{@teams[0].id}"
+            %ul
+              - @teams[0].players.each do |player|
+                %li= player.name
+      %div.col
+        %div.card
+          %div.card-header
+            = @teams[1].name
+          %div.card-body
+            %p
+              %i= "id: #{@teams[1].id}"
+            %ul
+              - @teams[1].players.each do |player|
+                %li= player.name
+    
+    
+    - @rounds.each do |round|
+      %div.row
+        %div.col
+          %div.card
+            %div.card-header
+              = "Round #{round.roundNumber}"
+            %div.card-body
+              %div.row
+                %div.col
+                  %p= "Winner: #{round.winnerId}"
+                  %p= "Loser: #{round.loserId}"
+                  %p= "Reason: #{round.winningReason}"
+                  %p= "Start Time: #{round.startTime}"
+                  %p= "End Time: #{round.endTime}"
+                %div.col
+                  %h5 Kill Feed
+                  %ul
+                    - round.killFeed.each do |kill|
+                      %li
+                        %pre= kill.inspect
