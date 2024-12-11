@@ -1,6 +1,6 @@
 %div.row.h-100
   %div.col-8.h-100.text-center
-    %img.h-100{src: "maps/#{@demoInfo.mapName}.png"}
+    %svg#mapSvg.h-100{width: "100%", height: "100%", viewBox: "0 0 1024 1024", 'data-map': @demoInfo.mapName}
   %div.col-4
     %div.row
       %div.col
@@ -52,4 +52,5 @@
                   %ul
                     - round.killFeed.each do |kill|
                       %li
-                        %pre= kill.inspect
+                        %pre.killEvent= Oj.dump(kill)
+%script{src: '/js/canvas-renderer.js'}
