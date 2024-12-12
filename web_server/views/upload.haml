@@ -1,7 +1,7 @@
 %div.row.h-100
   %div.col-8.h-100.text-center
     %svg#mapSvg.h-100{width: "100%", height: "100%", viewBox: "0 0 1024 1024", 'data-map': @demoInfo.mapName}
-  %div.col-4
+  %div.col-4.overflow-scroll.vh-100.pb-5
     %div.row
       %div.col
         %h2="#{@demoInfo.mapName} - #{@demoInfo.serverName}"
@@ -53,4 +53,6 @@
                     - round.killFeed.each do |kill|
                       %li
                         %pre.killEvent= Oj.dump(kill)
+    %div.row.mb-2
+      &nbsp;
 %script{src: '/js/canvas-renderer.js'}

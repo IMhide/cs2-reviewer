@@ -33,7 +33,7 @@ end
 post '/upload' do
   params[:file][:tempfile]
   # stdout, _stderr, _status = Open3.capture3('../out/bin/cs2-reviewer', tempfile.path)
-  stdout = File.read('tmp/test2.json')
+  stdout = File.read('tmp/de_mirage.json')
   json = Oj.load(stdout)
 
   @demoInfo = DemoInfo.new(**json['demoInfo'])
@@ -50,7 +50,7 @@ post '/upload' do
 
   @rounds = json['rounds'].map do |round|
     Round.new(round['roundNumber'], round['startTime'], round['endTime'], round['winningReason'],
-      round['winnerState']['id'], round['loserState']['id'], round['killFeed'])
+      round['winnerState']['id'], round['loserState']['id'], round['killFeed'] || [])
   end
 
   haml :upload, format: :html5
