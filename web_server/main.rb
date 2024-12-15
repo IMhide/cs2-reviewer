@@ -33,7 +33,7 @@ end
 post '/upload' do
   params[:file][:tempfile]
   # stdout, _stderr, _status = Open3.capture3('../out/bin/cs2-reviewer', tempfile.path)
-  stdout = File.read('tmp/de_mirage.json')
+  stdout = File.read('tmp/de_nuke.json')
   json = Oj.load(stdout)
 
   @demoInfo = DemoInfo.new(**json['demoInfo'])
