@@ -78,3 +78,8 @@ get '/test' do
 
   haml :upload, format: :html5
 end
+
+get '/app' do
+  File.read('./public/app/index.html')
+end
+
