@@ -32,7 +32,7 @@ end
 
 post '/upload' do
   tempfile = params[:file][:tempfile]
-  stdout, _stderr, _status = Open3.capture3('../out/bin/cs2-reviewer', tempfile.path)
+  stdout, _stderr, _status = Open3.capture3('../demo_parser/out/bin/cs2-reviewer', tempfile.path)
   json = Oj.load(stdout)
 
   @demoInfo = DemoInfo.new(**json['demoInfo'])
