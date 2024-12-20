@@ -1,47 +1,40 @@
 <script lang="ts">
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
+  import DemoInfo from './models/demo_info'
+  import DemoInfoSection from './lib/DemoInfoSection.svelte'
+  import Team from './models/team'
+  import Round from './models/round'
+
+
+  const host = 'http://localhost:4567'
+
+  let informations = $state()
+  let demoInfo = $state(new DemoInfo({}))
+  let teams = $state([])
+  let rounds = $state([])
+
+  $effect(() => {
+    fetch(host + '/test')
+      .then(res => res.json())
+      .then(data => {
+        informations = data
+        demoInfo = new DemoInfo(data.demoInfo)
+        teams = data.teams.map(team => new Team(team))
+        rounds = data.rounds.map(round => new Round(round))
+      }).catch(err => {
+        console.log(err)
+      })
+  })
+  $inspect(informations)
+  $inspect(rounds)
 </script>
 
 <main>
-  <div>
-    <a href="https://vite.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
+  <div class="row h-100">
+    <div class="col-8 h-100 text-center">
+      <svg id="mapSvg" class="h-100" width="100%" height="100%" viewBox="0 0 1024 1024" data-map={demoInfo.mapName}></svg>
+    </div>
 
-  <div class="card">
-    <Counter />
-  </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
+    <div class="col-4 overflow-scroll vh-100 pb-5">
+      <DemoInfoSection {demoInfo} />
+    </div>
 </main>
-
-<style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
-  }
-</style>

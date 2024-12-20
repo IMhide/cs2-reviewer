@@ -47,8 +47,8 @@ type Kill struct {
 }
 
 type PlayerState struct {
-	PlayerID   int     `json:"attackerID"`
-	PlayerName string  `json:"attackerName"`
+	PlayerID   int     `json:"playerID"`
+	PlayerName string  `json:"playerName"`
 	Flashed    bool    `json:"flashed"`
 	PositionX  float64 `json:"positionX"`
 	PositionY  float64 `json:"positionY"`

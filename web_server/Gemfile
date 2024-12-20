@@ -7,9 +7,9 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 gem 'rspec'
 gem 'zeitwerk'
 gem 'sinatra'
+gem 'sinatra-contrib'
 gem 'rackup'
 gem 'puma'
 gem 'haml'
 gem 'oj'
-# gem 'activesupport'
 gem 'rerun', require: false
