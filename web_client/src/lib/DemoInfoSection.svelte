@@ -1,8 +1,5 @@
 <script lang="ts">
-
   let {demoInfo} = $props()
-
-  $inspect(demoInfo)
 </script>
 
 <div class="row">

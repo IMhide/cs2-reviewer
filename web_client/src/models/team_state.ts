@@ -1,4 +1,5 @@
 import FinancialState from './financial_state';
+import Team from './team';
 
 export default class TeamState {
   teamId: number;
@@ -8,7 +9,10 @@ export default class TeamState {
   constructor(data: Object) {
     this.teamId = data.id;
     this.score = data.score;
+    this.financialState = new FinancialState(data.financialStats);
+  }
 
-//    this.financialState = new FinancialState(data.financialState);
+  teamName(Teams: Team[]): string {
+    return Teams.find(team => team.id === this.teamId).name;
   }
 }
