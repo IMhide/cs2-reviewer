@@ -14,8 +14,8 @@ type Team struct {
 
 type TeamState struct {
 	ID             int            `json:"id"`
-	score          int            `json:"score"`
-	financialStats FinancialStats `json:"financialStats"`
+	Score          int            `json:"score"`
+	FinancialStats FinancialStats `json:"financialStats"`
 }
 
 type Player struct {
@@ -25,7 +25,7 @@ type Player struct {
 }
 
 type Round struct {
-	roundNumber   int                   `json:"roundNumber"`
+	RoundNumber   int                   `json:"roundNumber"`
 	StartTime     time.Duration         `json:"startTime"`
 	EndTime       time.Duration         `json:"endTime"`
 	WinningReason events.RoundEndReason `json:"winningReason"`

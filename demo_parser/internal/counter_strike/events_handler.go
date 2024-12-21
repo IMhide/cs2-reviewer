@@ -16,7 +16,7 @@ import (
 
 func RoundStartEventHandler(rounds *[]Round, currentDuration *time.Duration) func(e events.RoundStart) {
 	return func(e events.RoundStart) {
-		*rounds = append(*rounds, Round{StartTime: *currentDuration, roundNumber: len(*rounds)})
+		*rounds = append(*rounds, Round{StartTime: *currentDuration, RoundNumber: len(*rounds)})
 	}
 }
 
