@@ -15,4 +15,3 @@ export default class PlayerState {
     this.positionZ = data.positionZ;
   }
 }
-

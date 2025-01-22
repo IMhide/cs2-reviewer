@@ -1,7 +1,6 @@
 <script lang="ts">
-  let {teams} = $props()
+  let { teams } = $props();
 </script>
-
 
 <div class="row">
   {#if teams && teams.length > 0}
@@ -40,4 +39,3 @@
     </div>
   {/if}
 </div>
-

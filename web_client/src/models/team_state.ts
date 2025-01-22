@@ -1,5 +1,5 @@
-import FinancialState from './financial_state';
-import Team from './team';
+import FinancialState from "./financial_state";
+import Team from "./team";
 
 export default class TeamState {
   teamId: number;
@@ -13,6 +13,6 @@ export default class TeamState {
   }
 
   teamName(Teams: Team[]): string {
-    return Teams.find(team => team.id === this.teamId).name;
+    return Teams.find((team) => team.id === this.teamId).name;
   }
 }

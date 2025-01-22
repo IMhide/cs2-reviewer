@@ -64,7 +64,7 @@ type DemoInfo struct {
 }
 
 type FinancialStats struct {
-	teamID        int `json:"teamID"`
+	TeamID        int `json:"teamID"`
 	RoundStartEco int `json:"roundStartEco"`
 	FreezeTimeEco int `json:"freezeTimeEco"`
 	EndRoundEco   int `json:"endRoundEco"`

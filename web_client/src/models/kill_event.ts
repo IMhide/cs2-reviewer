@@ -1,4 +1,4 @@
-import PlayerState from './player_state';
+import PlayerState from "./player_state";
 
 export default class KillEvent {
   happenedAt: number;
@@ -8,8 +8,8 @@ export default class KillEvent {
   isThroughSmoke: boolean;
   weaponName: string;
   attacker: PlayerState;
-  victim:  PlayerState;
-  assister:  PlayerState;
+  victim: PlayerState;
+  assister: PlayerState;
 
   constructor(data: Object) {
     this.happenedAt = data.happenedAt;

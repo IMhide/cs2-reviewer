@@ -1,5 +1,5 @@
 <script lang="ts">
-  let {demoInfo} = $props()
+  let { demoInfo } = $props();
 </script>
 
 <div class="row">
@@ -9,7 +9,10 @@
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <p>Duration in Seconds: {demoInfo.durationInSec}, Ticks: {demoInfo.durationInTick}, Frames: {demoInfo.durationInFrame}</p>
+            <p>
+              Duration in Seconds: {demoInfo.durationInSec}, Ticks: {demoInfo.durationInTick},
+              Frames: {demoInfo.durationInFrame}
+            </p>
           </div>
         </div>
       </div>
