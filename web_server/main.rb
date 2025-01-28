@@ -57,7 +57,8 @@ end
 
 get '/test' do
   stdout = File.read('tmp/de_nuke.json')
-  json Oj.load(stdout)
+  json JSON.parse(stdout)
+  # json Oj.load(stdout)
 end
 
 get '/app' do
