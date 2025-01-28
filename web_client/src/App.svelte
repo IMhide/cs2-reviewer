@@ -28,6 +28,8 @@
         console.log(err);
       });
   });
+
+  $inspect(teams);
 </script>
 
 <div class="row h-100">
