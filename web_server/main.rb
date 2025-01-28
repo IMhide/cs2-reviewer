@@ -56,7 +56,7 @@ post '/upload' do
 end
 
 get '/test' do
-  stdout = File.read('tmp/de_anubis.json')
+  stdout = File.read('tmp/de_nuke.json')
   json Oj.load(stdout)
 end
 

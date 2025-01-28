@@ -5,7 +5,13 @@ export default class DemoInfo {
   durationInTick: number;
   durationInFrame: number;
 
-  constructor(data: Object) {
+  constructor(data: {
+    mapName: string;
+    serverName: string;
+    durationInSec: number;
+    durationInFrame: number;
+    durationInTick: number;
+  }) {
     this.mapName = data.mapName;
     this.serverName = data.serverName;
     this.durationInSec = data.durationInSec;

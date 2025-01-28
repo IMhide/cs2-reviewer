@@ -6,7 +6,14 @@ export default class PlayerState {
   positionY: number;
   positionZ: number;
 
-  constructor(data: Object) {
+  constructor(data: {
+    playerId: number;
+    playerName: string;
+    isFlashed: boolean;
+    positionX: number;
+    positionY: number;
+    positionZ: number;
+  }) {
     this.playerGameId = data.playerId;
     this.playerName = data.playerName;
     this.isFlashed = data.isFlashed;

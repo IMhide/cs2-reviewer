@@ -1,8 +1,17 @@
 <script lang="ts">
-  let { rounds, teams } = $props();
+  import KillEvent from "../models/kill_event";
+
+  let { rounds, teams, selectedEvent = $bindable() } = $props();
+  let count = 0;
+
+  function onclick(event) {
+    const roundIndex = event.target.dataset.roundIndex;
+    const eventIndex = event.target.dataset.eventIndex;
+    selectedEvent = new KillEvent(rounds[roundIndex].killFeed[eventIndex]);
+  }
 </script>
 
-{#each rounds as round}
+{#each rounds as round, roundIndex}
   <div class="row">
     <div class="col">
       <div class="card">
@@ -12,9 +21,14 @@
         </div>
         <div class="card-body">
           <ul>
-            {#each round.killFeed as killEvent}
+            {#each round.killFeed as killEvent, eventIndex}
               <li>
-                <pre>{JSON.stringify(killEvent)}</pre>
+                <pre
+                  {onclick}
+                  data-event-index={eventIndex}
+                  data-round-index={roundIndex}>
+                {JSON.stringify(killEvent)}
+                </pre>
               </li>
             {/each}
           </ul>

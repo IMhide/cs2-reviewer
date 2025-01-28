@@ -11,7 +11,38 @@ export default class KillEvent {
   victim: PlayerState;
   assister: PlayerState;
 
-  constructor(data: Object) {
+  constructor(data: {
+    happenedAt: number;
+    isHeadshot: boolean;
+    wallbang: boolean;
+    noScope: boolean;
+    throughSmoke: boolean;
+    weaponName: string;
+    attacker: {
+      playerId: number;
+      playerName: string;
+      isFlashed: boolean;
+      positionX: number;
+      positionY: number;
+      positionZ: number;
+    };
+    victim: {
+      playerId: number;
+      playerName: string;
+      isFlashed: boolean;
+      positionX: number;
+      positionY: number;
+      positionZ: number;
+    };
+    assister: {
+      playerId: number;
+      playerName: string;
+      isFlashed: boolean;
+      positionX: number;
+      positionY: number;
+      positionZ: number;
+    };
+  }) {
     this.happenedAt = data.happenedAt;
     this.isHeadshot = data.isHeadshot;
     this.isWallbang = data.wallbang;
@@ -19,8 +50,8 @@ export default class KillEvent {
     this.isThroughSmoke = data.throughSmoke;
     this.weaponName = data.weaponName;
 
-    this.attacker = data.attacker;
-    this.victim = data.victim;
-    this.assister = data.assister;
+    this.attacker = new PlayerState(data.attacker);
+    this.victim = new PlayerState(data.victim);
+    this.assister = new PlayerState(data.assister);
   }
 }
