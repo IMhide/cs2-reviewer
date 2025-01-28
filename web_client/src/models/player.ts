@@ -4,7 +4,7 @@ type PlayerSchema = z.infer<typeof Player.PlayerSchema>;
 
 export default class Player {
   static PlayerSchema = z.object({
-    steamID: z.string().optional(),
+    steamID: z.string(),
     gameID: z.number(),
     name: z.string(),
   });

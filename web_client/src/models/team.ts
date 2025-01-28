@@ -1,7 +1,7 @@
 import { z } from "zod";
 import Player from "./player";
 
-type TeamSchema = z.infer<typeof PlayerSchema>;
+type TeamSchema = z.infer<typeof Team.TeamSchema>;
 
 export default class Team {
   static TeamSchema = z.object({
@@ -14,7 +14,7 @@ export default class Team {
     Object.assign(this, data);
   }
 
-  static fromPayload(payload: unknown) {
+  static fromPayload(payload: unknown): Team {
     const parsed = this.TeamSchema.safeParse(payload);
     if (!parsed.success) {
       console.error(payload);

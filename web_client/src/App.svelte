@@ -20,9 +20,9 @@
       .then((res) => res.json())
       .then((data) => {
         informations = data;
-        demoInfo = new DemoInfo(data.demoInfo);
-        teams = data.teams.map((team) => Team.fromPayload(team));
-        rounds = data.rounds.map((round) => new Round(round));
+        demoInfo = DemoInfo.fromPayload(data.demoInfo);
+        teams = data.teams.map((team: any) => Team.fromPayload(team));
+        rounds = data.rounds.map((round: any) => new Round(round));
       })
       .catch((err) => {
         console.log(err);
