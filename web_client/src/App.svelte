@@ -21,7 +21,7 @@
       .then((data) => {
         informations = data;
         demoInfo = new DemoInfo(data.demoInfo);
-        teams = data.teams.map((team) => new Team(team));
+        teams = data.teams.map((team) => Team.fromPayload(team));
         rounds = data.rounds.map((round) => new Round(round));
       })
       .catch((err) => {
