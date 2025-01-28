@@ -2,7 +2,6 @@
   import KillEvent from "../models/kill_event";
 
   let { rounds, teams, selectedEvent = $bindable() } = $props();
-  let count = 0;
 
   function onclick(event) {
     const roundIndex = event.target.dataset.roundIndex;
