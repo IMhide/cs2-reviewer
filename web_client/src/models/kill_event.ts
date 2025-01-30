@@ -5,7 +5,7 @@ import PlayerState from "./player_state";
 const KillEventSchema = Z.class({
   happenedAt: z.number(),
   isHeadshot: z.boolean(),
-  isWallbang: z.boolean(),
+  isWallBang: z.boolean(),
   isNoScope: z.boolean(),
   isThroughSmoke: z.boolean(),
   weaponName: z.string(),

@@ -13,7 +13,7 @@ type Team struct {
 }
 
 type TeamState struct {
-	ID             int            `json:"id"`
+	ID             int            `json:"teamId"`
 	Score          int            `json:"score"`
 	FinancialStats FinancialStats `json:"financialStats"`
 }
@@ -40,16 +40,16 @@ type Kill struct {
 	Attacker     PlayerState   `json:"attacker"`
 	Assiter      PlayerState   `json:"assister"`
 	WeaponName   string        `json:"weaponName"`
-	WallBang     bool          `json:"wallBang"`
+	WallBang     bool          `json:"isWallBang"`
 	IsHeadshot   bool          `json:"isHeadshot"`
-	NoScope      bool          `json:"noScope"`
-	ThroughSmoke bool          `json:"throughSmoke"`
+	NoScope      bool          `json:"isNoScope"`
+	ThroughSmoke bool          `json:"isThroughSmoke"`
 }
 
 type PlayerState struct {
-	PlayerID   int     `json:"playerID"`
+	PlayerID   int     `json:"playerGameId"`
 	PlayerName string  `json:"playerName"`
-	Flashed    bool    `json:"flashed"`
+	Flashed    bool    `json:"isFlashed"`
 	PositionX  float64 `json:"positionX"`
 	PositionY  float64 `json:"positionY"`
 	PositionZ  float64 `json:"positionZ"`
