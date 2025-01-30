@@ -1,17 +1,16 @@
-import FinancialState from "./financial_state";
+import { z } from "zod";
+import { Z } from "zod-class";
+import FinancialStats from "./financial_stats";
 import Team from "./team";
 
-export default class TeamState {
-  teamId: number;
-  score: number;
-  financialState: FinancialState;
+const TeamStateSchema = Z.class({
+  teamId: z.number(),
+  score: z.number(),
+  financialStats: z.any(),
+  //  financialStats: FinancialStats.schema().optional(),
+});
 
-  constructor(data: Object) {
-    this.teamId = data.id;
-    this.score = data.score;
-    this.financialState = new FinancialState(data.financialStats);
-  }
-
+export default class TeamState extends TeamStateSchema {
   teamName(Teams: Team[]): string {
     return Teams.find((team) => team.id === this.teamId).name;
   }

@@ -1,24 +1,13 @@
-export default class PlayerState {
-  playerGameId: number;
-  playerName: string;
-  isFlashed: boolean;
-  positionX: number;
-  positionY: number;
-  positionZ: number;
+import { z } from "zod";
+import { Z } from "zod-class";
 
-  constructor(data: {
-    playerId: number;
-    playerName: string;
-    isFlashed: boolean;
-    positionX: number;
-    positionY: number;
-    positionZ: number;
-  }) {
-    this.playerGameId = data.playerId;
-    this.playerName = data.playerName;
-    this.isFlashed = data.isFlashed;
-    this.positionX = data.positionX;
-    this.positionY = data.positionY;
-    this.positionZ = data.positionZ;
-  }
-}
+const PlayerStateSchema = Z.class({
+  playerGameId: z.number(),
+  playerName: z.string(),
+  isFlashed: z.boolean(),
+  positionX: z.number(),
+  positionY: z.number(),
+  positionZ: z.number(),
+});
+
+export default class PlayerState extends PlayerStateSchema {}

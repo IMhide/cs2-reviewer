@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Spinner from "./lib/Spinner.svelte";
   import DemoPlayer from "./lib/DemoPlayer.svelte";
   import DemoInfoSection from "./lib/DemoInfoSection.svelte";
   import TeamsSection from "./lib/TeamsSection.svelte";
@@ -10,7 +11,7 @@
   const host = "http://localhost:4567";
 
   let informations = $state();
-  let demoInfo = $state(new DemoInfo({}));
+  let demoInfo = $state();
   let teams = $state([]);
   let rounds = $state([]);
   let selectedEvent = $state();
@@ -19,24 +20,27 @@
     fetch(host + "/test")
       .then((res) => res.json())
       .then((data) => {
+        demoInfo = DemoInfo.parse(data.demoInfo);
         informations = data;
-        demoInfo = DemoInfo.fromPayload(data.demoInfo);
-        teams = data.teams.map((team: any) => Team.fromPayload(team));
-        rounds = data.rounds.map((round: any) => new Round(round));
+        teams = data.teams.map((team: any) => Team.parse(team));
+        rounds = data.rounds.map((round: any) => {
+          console.log(round);
+          return Round.parse(round);
+        });
       })
       .catch((err) => {
         console.log(err);
       });
   });
-
-  $inspect(teams);
 </script>
 
 <div class="row h-100">
   <div class="col-8 h-100 text-center">
-    {#key demoInfo}
-      <DemoPlayer {demoInfo} bind:selectedEvent />
-    {/key}
+    {#if demoInfo === undefined}
+      <Spinner />
+    {:else}
+      <DemoPlayer {demoInfo} {selectedEvent} />
+    {/if}
   </div>
 
   <div class="col-4 overflow-scroll vh-100 pb-5">

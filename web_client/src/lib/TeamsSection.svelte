@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Spinner from "./Spinner.svelte";
+
   let { teams } = $props();
 </script>
 
@@ -34,8 +36,6 @@
       </div>
     </div>
   {:else}
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
+    <Spinner />
   {/if}
 </div>

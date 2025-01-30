@@ -1,26 +1,20 @@
+import { z } from "zod";
+import { Z } from "zod-class";
 import KillEvent from "./kill_event";
 import TeamState from "./team_state";
 import Team from "./team";
 
-export default class Round {
-  roundNumber: number;
-  startTime: number;
-  endTime: number;
-  winningReason: number;
-  winnerState: TeamState;
-  loserState: TeamState;
-  killFeed: killEvent[];
+const RoundSchema = Z.class({
+  roundNumber: z.number(),
+  startTime: z.number(),
+  endTime: z.number(),
+  winningReason: z.number(),
+  winnerState: TeamState.schema(),
+  loserState: TeamState.schema(),
+  killFeed: z.array(KillEvent.schema()),
+});
 
-  constructor(data: Object) {
-    this.roundNumber = data.roundNumber;
-    this.startTime = data.startTime;
-    this.endTime = data.endTime;
-    this.winningReason = data.winningReason;
-    this.winnerState = new TeamState(data.winnerState);
-    this.loserState = new TeamState(data.loserState);
-    this.killFeed = data.killFeed.map((killEvent) => new KillEvent(killEvent));
-  }
-
+export default class Round extends RoundSchema {
   teamsScore(teams: Team[]): Object[] {
     return [
       {

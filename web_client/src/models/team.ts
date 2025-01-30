@@ -1,25 +1,11 @@
 import { z } from "zod";
+import { Z } from "zod-class";
 import Player from "./player";
 
-type TeamSchema = z.infer<typeof Team.TeamSchema>;
+const TeamSchema = Z.class({
+  id: z.number(),
+  name: z.string(),
+  players: z.array(Player.schema()),
+});
 
-export default class Team {
-  static TeamSchema = z.object({
-    id: z.number(),
-    name: z.string(),
-    players: Player.PlayerSchema.array(),
-  });
-
-  constructor(public readonly data: TeamSchema) {
-    Object.assign(this, data);
-  }
-
-  static fromPayload(payload: unknown): Team {
-    const parsed = this.TeamSchema.safeParse(payload);
-    if (!parsed.success) {
-      console.error(payload);
-      throw new Error(`Invalid Team payload: ${parsed.error}`);
-    }
-    return new Team(parsed.data);
-  }
-}
+export default class Team extends TeamSchema {}
