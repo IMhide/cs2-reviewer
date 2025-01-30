@@ -6,8 +6,8 @@ import Team from "./team";
 const TeamStateSchema = Z.class({
   teamId: z.number(),
   score: z.number(),
-  financialStats: z.any(),
-  //  financialStats: FinancialStats.schema().optional(),
+  //financialStats: z.any(),
+  financialStats: FinancialStats.schema(),
 });
 
 export default class TeamState extends TeamStateSchema {

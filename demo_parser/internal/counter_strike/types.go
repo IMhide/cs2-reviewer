@@ -64,10 +64,10 @@ type DemoInfo struct {
 }
 
 type FinancialStats struct {
-	TeamID        int `json:"teamID"`
-	RoundStartEco int `json:"roundStartEco"`
-	FreezeTimeEco int `json:"freezeTimeEco"`
-	EndRoundEco   int `json:"endRoundEco"`
+	TeamID        int `json:"teamId"`
+	RoundStartEco int `json:"roundStartMoney"`
+	FreezeTimeEco int `json:"freezeTimeMoney"`
+	EndRoundEco   int `json:"endRoundMoney"`
 	SpentMoney    int `json:"spentMoney"`
 }
 
